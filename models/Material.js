@@ -10,7 +10,12 @@ const materialSchema = mongoose.Schema({
         type: Boolean,
         default: true,
     },
-    cantidad:{
+    principal:{
+        type: String,
+        required: true,
+        trim: true
+    },
+    subalmacen:{
         type: String,
         required: true,
         trim: true

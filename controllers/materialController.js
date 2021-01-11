@@ -65,7 +65,7 @@ exports.obtenerMateriales = async (req, res) => {
 //Actualiza maleta por id
 exports.actualizarMateriales = async (req, res) => {
     try{
-        const {maleta, nombre, cantidad, codigo, estado} = req.body;
+        const {maleta, nombre, principal, subalmacen, codigo, estado} = req.body;
 
         //Validar si la tarea existe
         let material = await Material.findById(req.params.id);
@@ -84,7 +84,8 @@ exports.actualizarMateriales = async (req, res) => {
         //Creamos un objeto con nueva información
         const nuevoMaterial = {};
         nuevoMaterial.nombre = nombre;
-        nuevoMaterial.cantidad = cantidad;
+        nuevoMaterial.principal = principal;
+        nuevoMaterial.subalmacen = subalmacen;
         nuevoMaterial.codigo = codigo;
         nuevoMaterial.estado = estado;
 

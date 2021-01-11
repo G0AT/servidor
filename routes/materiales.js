@@ -11,7 +11,8 @@ const {check} = require('express-validator');
         [
             check('nombre', 'El nombre de grupo no puede estar vacio').not().isEmpty(),
             check('maleta', 'La maleta debe existir').not().isEmpty(),
-            check('cantidad', 'La cantidad no puede ser menor a 0').not().isEmpty(),
+            check('principal', 'La cantidad no puede ser menor a 0').not().isEmpty(),
+            check('subalmacen', 'La cantidad no puede ser menor a 0').not().isEmpty(),
             check('codigo', 'El código debe de existir').not().isEmpty()
         ],
         materialController.crearMaterial
