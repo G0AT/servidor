@@ -23,6 +23,4 @@ app.use('/api/maletas', require('./routes/maletas'));
 app.use('/api/materiales', require('./routes/materiales'));
 
 //inicio de app
-app.listen(port, '0.0.0.0', () => {
-    console.log(`El servidor está funcionando en el puerto ${port}`);
-});
+app.listen(port, '0.0.0.0', () => console.log(`El servidor está funcionando en el puerto ${port}`));
