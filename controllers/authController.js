@@ -25,6 +25,10 @@ exports.autenticarUsuario = async (req, res) => {
             return res.status(400).json({msg: 'El usuario o la contraseña son incorrectos'});
         }
 
+        if(usuario.estatus !== "A"){
+            return res.status(400).json({msg: 'Su usuario se encuentra inactivo, favor de contactar al administrador'});
+        }
+
         //Crear el Json Web Token
         const payload = {
             usuario: {
