@@ -29,7 +29,10 @@ exports.crearMaleta = async (req, res) => {
 //Obtención de todos las maletas actuales
 exports.obtenerMaletas = async (req, res) => {
     try{
-        const maletas = await Maleta.find({creador: req.usuario.id}).sort({creado: -1});
+        //Elimino esta parte para poder dar accesos a todos los usuarios de visualizar los elementos
+        //creador: req.usuario.id (Este val dentro del find
+        //.sort({creado: -1}) Este va posterior al find
+        const maletas = await Maleta.find({});
         res.json({maletas});
     }catch(error){
         console.log(error);
@@ -63,9 +66,10 @@ exports.actualizarMaleta = async (req, res) => {
         }
 
         //Verificar al creador
-        if(maleta.creador.toString() !== req.usuario.id ){
-            return res.status(401).json({msg: 'Acceso no autorizado'});
-        }
+        //Linea comentada para acceder a los espacios
+        //if(maleta.creador.toString() !== req.usuario.id ){
+        //    return res.status(401).json({msg: 'Acceso no autorizado'});
+        //}
 
         //Actualizar
         maleta = await Maleta.findByIdAndUpdate({_id: req.params.id}, {$set: nuevaMaleta}, {new: true});
@@ -90,9 +94,10 @@ exports.eliminarMaleta = async (req, res) => {
         }
 
         //Verificar al creador
-        if(maleta.creador.toString() !== req.usuario.id ){
-            return res.status(401).json({msg: 'Acceso no autorizado'});
-        }
+        //Linea comentada para acceder a los espacios
+        //if(maleta.creador.toString() !== req.usuario.id ){
+        //    return res.status(401).json({msg: 'Acceso no autorizado'});
+        //}
 
         //Eliminar maleta
         await Maleta.findOneAndRemove({_id: req.params.id});

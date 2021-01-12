@@ -20,9 +20,10 @@ exports.crearMaterial = async (req, res) => {
         }
 
         //Verificar al creador
-        if(existenciaMaleta.creador.toString() !== req.usuario.id ){
-            return res.status(401).json({msg: 'Acceso no autorizado'});
-        }
+        //Linea comentada para acceder a los espacios
+        //if(existenciaMaleta.creador.toString() !== req.usuario.id ){
+        //    return res.status(401).json({msg: 'Acceso no autorizado'});
+        //}
 
         //Creamos el material
         const material = new Material(req.body);
@@ -49,11 +50,13 @@ exports.obtenerMateriales = async (req, res) => {
         }
 
         //Verificar al creador
-        if(existenciaMaleta.creador.toString() !== req.usuario.id ){
-            return res.status(401).json({msg: 'Acceso no autorizado'});
-        }
+        //if(existenciaMaleta.creador.toString() !== req.usuario.id ){
+        //    return res.status(401).json({msg: 'Acceso no autorizado'});
+        //}
 
-        const materiales = await Material.find({maleta}).sort({creado: -1});
+        //Elimino para poder ordenar a comodidad
+        //.sort({creado: -1}) este va posterior al find
+        const materiales = await Material.find({maleta});
         res.json({materiales});
 
     }catch(error){
@@ -77,9 +80,9 @@ exports.actualizarMateriales = async (req, res) => {
         const existenciaMaleta = await Maleta.findById(maleta);
 
         //Verificar al creador
-        if(existenciaMaleta.creador.toString() !== req.usuario.id ){ 
-            return res.status(401).json({msg: 'Acceso no autorizado'});
-        }
+        //if(existenciaMaleta.creador.toString() !== req.usuario.id ){ 
+        //    return res.status(401).json({msg: 'Acceso no autorizado'});
+        //}
 
         //Creamos un objeto con nueva información
         const nuevoMaterial = {};
@@ -115,9 +118,9 @@ exports.eliminarMateriales = async (req, res) => {
         const existeMaleta = await Maleta.findById(maleta);
 
         // Revisar si el proyecto actual pertenece al usuario autenticado
-        if(existeMaleta.creador.toString() !== req.usuario.id ) {
-            return res.status(401).json({msg: 'No Autorizado'});
-        }
+        //if(existeMaleta.creador.toString() !== req.usuario.id ) {
+        //    return res.status(401).json({msg: 'No Autorizado'});
+        //}
 
         // Eliminar
         await Material.findOneAndRemove({_id: req.params.id});
